@@ -13,12 +13,13 @@
 
         private static void WriteTextWithBorder(string text)
         {
-            string paddedText = $" {text} ";  
-            int width = paddedText.Length + 2;
+            int textLength = text.Length + 2;  
+            string border = new string('-', textLength);
 
-            Console.WriteLine(new string('-', width));
-            Console.WriteLine($"|{paddedText}|");
-            Console.WriteLine(new string('-', width));
+             
+            Console.WriteLine($"+{border}+");
+            Console.WriteLine($"| {text} |");
+            Console.WriteLine($"+{border}+");
         }
     }
 }

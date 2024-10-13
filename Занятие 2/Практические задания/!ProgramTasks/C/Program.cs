@@ -14,7 +14,11 @@
 
         public static int MiddleOf(int a, int b, int c)
         {
-            return a + b + c - Math.Min(Math.Min(a, b), c) - Math.Max(Math.Max(a, b), c);
+            if ((a >= b) && (b >= c) || (c >= b) && (b >= a))
+                return b;
+            else if ((a >= c) && (c >= b) || (b >= c) && (c >= a))
+                return c;
+            else return a;
         }
     }
 }
