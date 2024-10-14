@@ -11,7 +11,14 @@
 
         public static int[] GetFirstEvenNumbers(int count)
         {
-            ...
+            int[] array = new int[count];
+
+            for (int i = 1; i <= count; i++)
+            {
+                array[i - 1] = i * 2;
+            }
+            Console.WriteLine(array.Length);
+            return array;
         }
 
     }
