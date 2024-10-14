@@ -9,7 +9,16 @@
 
         public static int GetElementCount(int[] items, int itemToCount)
         {
-            ...
+            var count = 0;  
+
+            foreach (var i in items)
+            {
+                if (i == itemToCount)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
     }
 }
