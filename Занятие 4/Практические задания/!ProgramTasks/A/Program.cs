@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            
             foreach (var num in GetFirstEvenNumbers(100))
                 Console.WriteLine(num);
         }
