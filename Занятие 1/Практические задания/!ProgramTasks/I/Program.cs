@@ -4,7 +4,11 @@
     {
         static string GetLastHalf(string text)
         {
-            ...
+            string noSpaces = text.Replace(" ", "");
+
+            int startIndex = noSpaces.Length / 2;
+
+            return noSpaces.Substring(startIndex);
         }
 
         static void Main(string[] args)
