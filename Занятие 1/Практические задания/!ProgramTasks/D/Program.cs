@@ -9,6 +9,7 @@
             double totalMoney = amount * peopleCount; 
             int totalBitcoins = (int)Math.Round(totalMoney); // окр.
             Console.WriteLine(totalMoney);
+
         }
     }
 }

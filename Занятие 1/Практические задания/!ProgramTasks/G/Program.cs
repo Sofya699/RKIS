@@ -15,6 +15,7 @@
             Console.WriteLine(GetGreetingMessage("Боб", 10.01));
             Console.WriteLine(GetGreetingMessage("Бобик", 10000000.5));
             Console.WriteLine(GetGreetingMessage("Бобан", 1));
+
         }
     }
 }
