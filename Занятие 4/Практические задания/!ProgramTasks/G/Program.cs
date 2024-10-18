@@ -25,7 +25,10 @@
 
         public static int[] GetPoweredArray(int[] arr, int power)
         {
-            ...
+            int[] arrCopy = (int[])arr.Clone();
+            for (int i = 0; i < arrCopy.Length; i++)
+                arrCopy[i] = (int)Math.Pow(arrCopy[i], power);
+            return arrCopy;
         }
     }
 }
