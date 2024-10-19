@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-        conole.Writeline()    // пишите код тут
+        console.WriteLine("The first step!");    // пишите код тут
         }
     }
 }
