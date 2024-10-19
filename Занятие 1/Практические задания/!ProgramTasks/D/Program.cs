@@ -1,4 +1,5 @@
-﻿namespace D
+using System;
+namespace D
 {
     internal class Program
     {
