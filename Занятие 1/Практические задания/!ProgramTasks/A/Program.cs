@@ -1,4 +1,5 @@
-﻿namespace A
+using System;
+namespace A
 {
     internal class Program
     {
