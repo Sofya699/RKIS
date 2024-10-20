@@ -7,7 +7,7 @@ namespace RefactorMe
     class Risovatel
     {
         static float x, y;
-        static IGraphics graphic;
+        static IGraphics graphics;
 
         public static void Initialization(IGraphics newGraphic)
         {
@@ -19,20 +19,20 @@ namespace RefactorMe
         public static void SetPosition(float x0, float y0)
         { x = x0; y = y0; }
 
-        public static void MakeStep(Pen pen, double Length, double corner)
+        public static void MakeStep(Pen pen, double Length, double angle)
         {
             //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
-            var x1 = (float)(x + Length * Math.Cos(corner));
-            var y1 = (float)(y + Length * Math.Sin(corner));
+            var x1 = (float)(x + Length * Math.Cos(angle));
+            var y1 = (float)(y + Length * Math.Sin(angle));
             graphic.DrawLine(pen, x, y, x1, y1);
             x = x1;
             y = y1;
         }
 
-        public static void ChangePosition(double Length, double corner)
+        public static void ChangePosition(double Length, double angle)
         {
-            x = (float)(x + Length * Math.Cos(corner));
-            y = (float)(y + Length * Math.Sin(corner));
+            x = (float)(x + Length * Math.Cos(angle));
+            y = (float)(y + Length * Math.Sin(angle));
         }
     }
 
@@ -55,20 +55,20 @@ namespace RefactorMe
             DrawSide(drawer, Size, Math.PI);
             DrawSide(drawer, Size, Math.PI / 2);
         }
-        private static void DrawSide(Risovatel drawer, float Size, double Angle)
+        private static void DrawSide(Risovatel drawer, float Size, double angle)
         {
             var pen1 = new Pen(Brushes.Blue);
             var pen2 = new Pen(Brushes.White);
             var pen3 = new Pen(Brushes.LightBlue);
             var pen4 = new Pen(Brushes.DeepSkyBlue);
 
-            Risovatel.MakeStep(pen1, Size * 0.375f, 0 + Angle);
-            Risovatel.MakeStep(pen2, Size * 0.04f * Math.Sqrt(2), Math.PI / 4 + Angle);
-            Risovatel.MakeStep(pen3, Size * 0.375f, Math.PI + Angle);
-            Risovatel.MakeStep(pen4, Size * 0.375f - Size * 0.04f, Math.PI / 2 + Angle);
+            Risovatel.MakeStep(pen1, Size * 0.375f, 0 + angle);
+            Risovatel.MakeStep(pen2, Size * 0.04f * Math.Sqrt(2), Math.PI / 4 + angle);
+            Risovatel.MakeStep(pen3, Size * 0.375f, Math.PI + angle);
+            Risovatel.MakeStep(pen4, Size * 0.375f - Size * 0.04f, Math.PI / 2 + angle);
 
-            Risovatel.ChangePosition(Size * 0.04f, Math.PI + Angle);
-            Risovatel.ChangePosition(Size * 0.04f * Math.Sqrt(2), 3 * Math.PI / 4 + Angle);
+            Risovatel.ChangePosition(Size * 0.04f, Math.PI + angle);
+            Risovatel.ChangePosition(Size * 0.04f * Math.Sqrt(2), 3 * Math.PI / 4 + angle);
         }
     }
 }
