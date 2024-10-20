@@ -4,7 +4,7 @@
     {
         static string GetLastHalf(string text)
         {
-            text = text.Replace(" ", String.Empty);
+            text = text.Replace(" ", string.Empty);
                 string c = text.Substring(text.Length/2);
                 return c;
         }
