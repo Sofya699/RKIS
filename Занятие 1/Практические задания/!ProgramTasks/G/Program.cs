@@ -4,15 +4,18 @@
     {
         private static string GetGreetingMessage(string name, double salary)
         {
-            // возвращает "Hello, <name>, your salary is <salary>"
-            ...
+            int roundedSalary = (int)Math.Ceiling(salary);
+
+            return $"Hello,{name}, your salary is {roundedSalary}.";
+            // окр.
         }
 
         static void Main(string[] args)
         {
-            Console.WriteLine(GetGreetingMessage("Student", 10.01));
-            Console.WriteLine(GetGreetingMessage("Bill Gates", 10000000.5));
-            Console.WriteLine(GetGreetingMessage("Steve Jobs", 1));
+            Console.WriteLine(GetGreetingMessage("Боб", 10.01));
+            Console.WriteLine(GetGreetingMessage("Бобик", 10000000.5));
+            Console.WriteLine(GetGreetingMessage("Бобан", 1));
+
         }
     }
 }
