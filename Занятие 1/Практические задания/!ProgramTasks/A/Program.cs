@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            // пишите код тут
+            The first step!
         }
     }
 }
