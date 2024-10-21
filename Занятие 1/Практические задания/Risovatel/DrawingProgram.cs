@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http.Headers;
 using Avalonia.Media;
 using RefactorMe.Common;
 
@@ -16,10 +17,10 @@ namespace RefactorMe
             graphics.Clear(Colors.Black);
         }
 
-        public static void set_position(float x0, float y0)
+        public static void SetPosition(float x0, float y0)
         {x = x0; y = y0;}
 
-        public static void makeIt(Pen brush, double length, double angle)
+        public static void MakeIt(Pen brush, double length, double angle)
         {
         //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
         var x1 = (float)(x + length * Math.Cos(angle));
@@ -43,48 +44,28 @@ namespace RefactorMe
         // ugolPovorota пока не используется, но будет использоваться в будущем
         Risovatel.Initialization(graphics);
 
-        var sz = Math.Min(width, height);
+        var size = Math.Min(width, height);
 
-        var diagonal_length = Math.Sqrt(2) * (sz * 0.375f + sz * 0.04f) / 2;
-        var x0 = (float)(diagonal_length * Math.Cos(Math.PI / 4 + Math.PI)) + width / 2f;
-        var y0 = (float)(diagonal_length * Math.Sin(Math.PI / 4 + Math.PI)) + height / 2f;
+        var diagonalLength = Math.Sqrt(2) * (size * 0.375f + size * 0.04f) / 2;
+        var x0 = (float)(diagonalLength * Math.Cos(Math.PI / 4 + Math.PI)) + width / 2f;
+        var y0 = (float)(diagonalLength * Math.Sin(Math.PI / 4 + Math.PI)) + height / 2f;
 
-        Risovatel.set_position(x0, y0);
-        //Рисуем 1-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, 0);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2);
+        Risovatel.SetPosition(x0, y0);
 
-        Risovatel.Change(sz * 0.04f, -Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), 3 * Math.PI / 4);
+        DrawSide(size, 0);
+        DrawSide(size, -Math.PI / 2);
+        DrawSide(size, Math.PI);
+        DrawSide(size, Math.PI / 2);
 
-        //Рисуем 2-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2 + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, -Math.PI / 2 + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, -Math.PI / 2 - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + 3 * Math.PI / 4);
-
-        //Рисуем 3-ю сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, Math.PI - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), Math.PI + 3 * Math.PI / 4);
-
-        //Рисуем 4-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2 + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2 + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, Math.PI / 2 - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + 3 * Math.PI / 4);
-    }
+        }
+       public static void DrawSide(int size, double angle)
+        {
+            Risovatel.MakeIt(new Pen(Brushes.Yellow), size * 0.375f, angle);
+            Risovatel.MakeIt(new Pen(Brushes.Yellow), size * 0.04f * Math.Sqrt(2), angle + Math.PI / 4);
+            Risovatel.MakeIt(new Pen(Brushes.Yellow), size * 0.375f, angle + Math.PI);
+            Risovatel.MakeIt(new Pen(Brushes.Yellow), size * 0.375f - size * 0.04f, angle + Math.PI / 2);
+            Risovatel.Change(size * 0.04f, angle + Math.PI);
+            Risovatel.Change(size * 0.04f * Math.Sqrt(2), angle + 3 * Math.PI / 4);
+        }
 }
 }
