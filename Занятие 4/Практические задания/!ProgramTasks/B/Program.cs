@@ -17,7 +17,20 @@
 
         public static int MaxIndex(double[] array)
         {
-            ...
+            var max =  double.MinValue;
+            foreach (var item in array)
+            {
+                if (item > max) max = item;
+            }
+
+            var firstIndex = -1;
+            if (array.Length < 0)
+            {
+                return firstIndex;
+            }
+
+            firstIndex = Array.IndexOf(array, max);
+            return firstIndex;
         }
     }
 }
