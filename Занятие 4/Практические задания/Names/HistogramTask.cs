@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Names;
-{
+
 internal static class HistogramTask
 {
     public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
@@ -24,10 +24,6 @@ internal static class HistogramTask
                 birthsCounts[man.BirthDate.Day - 1]++;
 
         }
-        return new HistogramData(
-             string.Format("Рождаемость людей с именем '{0}'", name),
-             days,
-             birthsCounts);
+        return new HistogramData(string.Format("Рождаемость людей с именем '{0}'", name), days, birthsCounts);
     }
-}
 }

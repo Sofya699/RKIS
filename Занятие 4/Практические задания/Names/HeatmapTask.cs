@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Names;
-{
+
 internal static class HeatmapTask
 {
     public static HeatmapData GetBirthsPerDateHeatmap(NameData[] names)
@@ -28,5 +28,4 @@ internal static class HeatmapTask
 
         return new HeatmapData("Карта интенсивностей рождаемости", birthCounts, days, months);
     }
-}
 }
