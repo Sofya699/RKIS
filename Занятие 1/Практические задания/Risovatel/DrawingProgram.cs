@@ -1,90 +1,83 @@
-﻿using System;
-using Avalonia.Media;
-using RefactorMe.Common;
-
+using System;
+using System.Diagnostics;
+using System.Drawing;
+ 
 namespace RefactorMe
 {
-    class Risovatel
-    {
-        static float x, y;
-        static IGraphics grafika;
-
-        public static void Initialization ( IGraphics novayaGrafika )
+	// ## Прочитайте! ##
+	//
+	// Ваша задача привести код в этом файле в порядок. 
+	// Для начала запустите эту программу.
+	// Переименуйте всё, что называется неправильно. Это можно делать комбинацией клавиш Ctrl+R, Ctrl+R (дважды нажать Ctrl+R).
+	// Повторяющиеся части кода вынесите во вспомогательные методы. Это можно сделать выделив несколько строк кода и нажав Ctrl+R, Ctrl+M
+	// Избавьтесь от всех зашитых в коде числовых констант — положите их в переменные с понятными именами.
+	// 
+	// После наведения порядка проверьте, что ваш код стал лучше. 
+	// На сколько проще после ваших переделок стало изменить размер фигуры? Повернуть её на некоторый угол? 
+	// Научиться рисовать невозможный треугольник, вместо квадрата?
+ 
+	class Drawer
+	{
+		static Bitmap image = new Bitmap(800, 600);
+		static float x, y;
+		static Graphics graphics;
+ 
+		public static void Initialize()
+		{
+			image = new Bitmap(800, 600);
+			graphics = Graphics.FromImage(image);
+		}
+ 
+		public static void set_pos(float x0, float y0)
+		{
+			x = x0;
+			y = y0;
+		}
+ 
+		public static void MakeStep(double L, double angle)
+		{
+			//Делает шаг длиной L в направлении angle и рисует пройденную траекторию
+			var x1 = (float)(x + L * Math.Cos(angle));
+			var y1 = (float)(y + L * Math.Sin(angle));
+			graphics.DrawLine(Pens.Yellow, x, y, x1, y1);
+			x = x1;
+			y = y1;
+		}
+ 
+		public static void ShowResult()
+		{
+			image.Save("result.bmp");
+			Process.Start("result.bmp");
+		}
+	}
+ 
+	public class DrawFigure
+	{
+        public static void DrawPart (int lengthOfSide, int angle, double turn)
         {
-            grafika = novayaGrafika;
-            //grafika.SmoothingMode = SmoothingMode.None;
-            grafika.Clear(Colors.Black);
+            Drawer.MakeStep(lengthOfSide, angle);
+            Drawer.MakeStep(10 * Math.Sqrt(2), turn + Math.PI / 4);
+            Drawer.MakeStep(100, turn + Math.PI);
+            Drawer.MakeStep(100 - (double)10, turn + Math.PI / 2);
         }
-
-        public static void set_position(float x0, float y0)
-        {x = x0; y = y0;}
-
-        public static void makeIt(Pen ruchka, double dlina, double ugol)
-        {
-        //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
-        var x1 = (float)(x + dlina * Math.Cos(ugol));
-        var y1 = (float)(y + dlina * Math.Sin(ugol));
-        grafika.DrawLine(ruchka, x, y, x1, y1);
-        x = x1;
-        y = y1;
-        }
-
-        public static void Change(double dlina, double ugol)
-        {
-            x = (float)(x + dlina * Math.Cos(ugol)); 
-           y = (float)(y + dlina * Math.Sin(ugol));
-           }
-    }
-    
-    public class ImpossibleSquare
-{
-    public static void Draw(int shirina, int visota, double ugolPovorota, IGraphics grafika)
-    {
-        // ugolPovorota пока не используется, но будет использоваться в будущем
-        Risovatel.Initialization(grafika);
-
-        var sz = Math.Min(shirina, visota);
-
-        var diagonal_length = Math.Sqrt(2) * (sz * 0.375f + sz * 0.04f) / 2;
-        var x0 = (float)(diagonal_length * Math.Cos(Math.PI / 4 + Math.PI)) + shirina / 2f;
-        var y0 = (float)(diagonal_length * Math.Sin(Math.PI / 4 + Math.PI)) + visota / 2f;
-
-        Risovatel.set_position(x0, y0);
-        //Рисуем 1-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, 0);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, -Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), 3 * Math.PI / 4);
-
-        //Рисуем 2-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, -Math.PI / 2 + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, -Math.PI / 2 + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, -Math.PI / 2 - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), -Math.PI / 2 + 3 * Math.PI / 4);
-
-        //Рисуем 3-ю сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, Math.PI - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), Math.PI + 3 * Math.PI / 4);
-
-        //Рисуем 4-ую сторону
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + Math.PI / 4);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f, Math.PI / 2 + Math.PI);
-        Risovatel.makeIt(new Pen(Brushes.Yellow), sz * 0.375f - sz * 0.04f, Math.PI / 2 + Math.PI / 2);
-
-        Risovatel.Change(sz * 0.04f, Math.PI / 2 - Math.PI);
-        Risovatel.Change(sz * 0.04f * Math.Sqrt(2), Math.PI / 2 + 3 * Math.PI / 4);
-    }
-}
+		public static void Main()
+		{
+			Drawer.Initialize();
+ 
+            //Рисуем четыре одинаковые части невозможного квадрата.
+            // Часть первая:
+            DrawPart(10, 0, 0);
+ 
+            // Часть вторая:
+            DrawPart(120, 10, Math.PI / 2);
+ 
+            // Часть третья:
+            DrawPart(110, 120, Math.PI);			
+ 
+            // Часть четвертая:
+            DrawPart(0, 110, -Math.PI / 2);			
+ 
+			Drawer.ShowResult();
+		}
+	}
 }
