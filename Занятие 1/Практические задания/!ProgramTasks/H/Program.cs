@@ -4,7 +4,18 @@
     {
         static void Main(string[] args)
         {
-            Print(GetSquare(42));
+            {
+                Print(GetSquare(42));
+            }
+            static void Print(int x)
+            {
+                Console.WriteLine(x);
+            }
+            static int GetSquare(int x)
+            {
+                return (int)Math.Pow(x, 2);
+            }
+            Console.ReadKey();
         }
     }
 }
