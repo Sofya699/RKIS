@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            // пишите код тут
-        }
+            Console.Writeline("The first step!");
+            Console.ReadKey():
+        }    
     }
 }
