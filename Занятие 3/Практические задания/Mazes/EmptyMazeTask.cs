@@ -1,38 +1,23 @@
-using System;
 namespace Mazes
 {
-    public static class SnakeMazeTask
+    public static class EmptyMazeTask
     {
         public static void MoveOut(Robot robot, int width, int height)
         {
-            var stepsToHorizont = width - 3;
-            while (true)
-            {
-                GoToRight(robot, stepsToHorizont);
-                GoToDown(robot);
-                GoToLeft(robot, stepsToHorizont);
-                if (robot.Finished)
-                    break;
-                GoToDown(robot);
-            }
+            GoX(robot, width);
+            GoY(robot, height);
         }
 
-        private static void GoToRight(Robot robot, int steps)
+        private static void GoX(Robot robot, int coords)
         {
-            for (var i = 0; i < steps; i++)
+            while (robot.X != (coords - 2))
                 robot.MoveTo(Direction.Right);
         }
 
-        private static void GoToDown(Robot robot)
+        private static void GoY(Robot robot, int coords)
         {
-            for (var i = 0; i < 2; i++)
+            while (robot.Y != (coords - 2))
                 robot.MoveTo(Direction.Down);
-        }
-
-        private static void GoToLeft(Robot robot, int steps)
-        {
-            for (var i = 0; i < steps; i++)
-                robot.MoveTo(Direction.Left);
         }
     }
 }
