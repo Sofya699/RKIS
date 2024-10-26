@@ -10,4 +10,4 @@ namespace E
             Console.WriteLine(number + 1);
         }
     }
-}
+} 
