@@ -1,4 +1,4 @@
-using Sistem;
+using System;
 namespace C
 {
     internal class Program
