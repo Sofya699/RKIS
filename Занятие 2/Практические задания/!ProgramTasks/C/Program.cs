@@ -1,26 +1,20 @@
-﻿namespace B
+﻿namespace C
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            TestMove("a1", "d4");
-            TestMove("f4", "e7");
-            TestMove("a1", "a4");
+            Console.WriteLine(MiddleOf(5, 0, 100)); // => 5
+            Console.WriteLine(MiddleOf(12, 12, 11)); // => 12
+            Console.WriteLine(MiddleOf(1, 1, 1)); // => 1
+            Console.WriteLine(MiddleOf(2, 3, 2));
+            Console.WriteLine(MiddleOf(8, 8, 8));
+            Console.WriteLine(MiddleOf(5, 0, 1));
         }
 
-        public static void TestMove(string from, string to)
+        public static int MiddleOf(int a, int b, int c)
         {
-            Console.WriteLine("{0}-{1} {2}", from, to, IsCorrectMove(from, to));
-        }
-
-        public static bool IsCorrectMove(string from, string to)
-        {
-            var dx = Math.Abs(to[0] - from[0]); //смещение фигуры по горизонтали
-            var dy = Math.Abs(to[1] - from[1]); //смещение фигуры по вертикали
-
-            // Ферзь ходит либо по горизонтали,по вертикали или диагонали
-            return dx == 0 || dy == 0 || dx == dy;
+            return a + b + c - Math.Max(a, Math.Max(b, c)) - Math.Min(a, Math.Min(b, c));
         }
     }
 }
