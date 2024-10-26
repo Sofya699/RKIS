@@ -11,4 +11,4 @@ namespace D
             Console.WriteLine(totalMoney);
         }
     }
-}
+} 
