@@ -6,8 +6,8 @@
         {
             double amount = 1.11; //количество биткоинов от одного человека
             int peopleCount = 60; // количество человек
-            double totalMoney  = (int)amount * (int)peopleCount; // ← исправьте ошибку в этой строке
-            Console.WriteLine((int)totalMoney);
+            int totalMoney = (int)Math.Round(amout*peopleCount); // ← исправьте ошибку в этой строке
+            Console.WriteLine(totalMoney);
         }
     }
 }
