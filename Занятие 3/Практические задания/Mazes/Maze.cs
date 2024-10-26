@@ -3,7 +3,7 @@ using System.Linq;
 using Avalonia;
 
 namespace Mazes;
-
+// 
 public class Maze
 {
     private readonly bool[][] walls;
