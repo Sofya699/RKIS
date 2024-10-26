@@ -1,3 +1,4 @@
+using System;
 namespace Mazes
 {
     public static class EmptyMazeTask
