@@ -1,83 +1,78 @@
-using System;
-using System.Diagnostics;
-using System.Drawing;
- 
+﻿using System;
+using Avalonia.Media;
+using RefactorMe.Common;
+
 namespace RefactorMe
 {
-	// ## Прочитайте! ##
-	//
-	// Ваша задача привести код в этом файле в порядок. 
-	// Для начала запустите эту программу.
-	// Переименуйте всё, что называется неправильно. Это можно делать комбинацией клавиш Ctrl+R, Ctrl+R (дважды нажать Ctrl+R).
-	// Повторяющиеся части кода вынесите во вспомогательные методы. Это можно сделать выделив несколько строк кода и нажав Ctrl+R, Ctrl+M
-	// Избавьтесь от всех зашитых в коде числовых констант — положите их в переменные с понятными именами.
-	// 
-	// После наведения порядка проверьте, что ваш код стал лучше. 
-	// На сколько проще после ваших переделок стало изменить размер фигуры? Повернуть её на некоторый угол? 
-	// Научиться рисовать невозможный треугольник, вместо квадрата?
- 
-	class Drawer
-	{
-		static Bitmap image = new Bitmap(800, 600);
-		static float x, y;
-		static Graphics graphics;
- 
-		public static void Initialize()
-		{
-			image = new Bitmap(800, 600);
-			graphics = Graphics.FromImage(image);
-		}
- 
-		public static void set_pos(float x0, float y0)
-		{
-			x = x0;
-			y = y0;
-		}
- 
-		public static void MakeStep(double L, double angle)
-		{
-			//Делает шаг длиной L в направлении angle и рисует пройденную траекторию
-			var x1 = (float)(x + L * Math.Cos(angle));
-			var y1 = (float)(y + L * Math.Sin(angle));
-			graphics.DrawLine(Pens.Yellow, x, y, x1, y1);
-			x = x1;
-			y = y1;
-		}
- 
-		public static void ShowResult()
-		{
-			image.Save("result.bmp");
-			Process.Start("result.bmp");
-		}
-	}
- 
-	public class DrawFigure
-	{
-        public static void DrawPart (int lengthOfSide, int angle, double turn)
+    class Drawer
+    {
+        private static float currentX, currentY;
+        private static IGraphics graphics;
+
+        public static void Initialize(IGraphics newGraphics)
         {
-            Drawer.MakeStep(lengthOfSide, angle);
-            Drawer.MakeStep(10 * Math.Sqrt(2), turn + Math.PI / 4);
-            Drawer.MakeStep(100, turn + Math.PI);
-            Drawer.MakeStep(100 - (double)10, turn + Math.PI / 2);
+            graphics = newGraphics;
+            graphics.Clear(Colors.Black);
         }
-		public static void Main()
-		{
-			Drawer.Initialize();
- 
-            //Рисуем четыре одинаковые части невозможного квадрата.
-            // Часть первая:
-            DrawPart(10, 0, 0);
- 
-            // Часть вторая:
-            DrawPart(120, 10, Math.PI / 2);
- 
-            // Часть третья:
-            DrawPart(110, 120, Math.PI);			
- 
-            // Часть четвертая:
-            DrawPart(0, 110, -Math.PI / 2);			
- 
-			Drawer.ShowResult();
-		}
-	}
+
+        public static void SetPosition(float x0, float y0)
+        {
+            currentX = x0;
+            currentY = y0;
+        }
+
+        public static void DrawLine(Pen pen, double length, double angle)
+        {
+            var newX = (float)(currentX + length * Math.Cos(angle));
+            var newY = (float)(currentY + length * Math.Sin(angle));
+            graphics.DrawLine(pen, currentX, currentY, newX, newY);
+            currentX = newX;
+            currentY = newY;
+        }
+
+        public static void Move(double length, double angle)
+        {
+            currentX = (float)(currentX + length * Math.Cos(angle));
+            currentY = (float)(currentY + length * Math.Sin(angle));
+        }
+    }
+
+    public class ImpossibleSquare
+    {
+        private const double SquareFactor = 0.375;
+        private const double SmallFactor = 0.04;
+
+        public static void Draw(int width, int height, double rotationAngle, IGraphics graphics)
+        {
+            Drawer.Initialize(graphics);
+
+            var size = Math.Min(width, height);
+            var diagonalLength = CalculateDiagonalLength(size);
+            var initialX = (float)(diagonalLength * Math.Cos(Math.PI / 4 + Math.PI)) + width / 2f;
+            var initialY = (float)(diagonalLength * Math.Sin(Math.PI / 4 + Math.PI)) + height / 2f;
+
+            Drawer.SetPosition(initialX, initialY);
+
+            DrawSide(size, rotationAngle, 0);
+            DrawSide(size, rotationAngle, -Math.PI / 2);
+            DrawSide(size, rotationAngle, Math.PI);
+            DrawSide(size, rotationAngle, Math.PI / 2);
+        }
+
+        private static double CalculateDiagonalLength(int size)
+        {
+            return Math.Sqrt(2) * (size * SquareFactor + size * SmallFactor) / 2;
+        }
+
+        private static void DrawSide(int size, double rotationAngle, double startAngle)
+        {
+            Drawer.DrawLine(new Pen(Brushes.Yellow), size * SquareFactor, startAngle);
+            Drawer.DrawLine(new Pen(Brushes.Yellow), size * SmallFactor * Math.Sqrt(2), startAngle + Math.PI / 4);
+            Drawer.DrawLine(new Pen(Brushes.Yellow), size * SquareFactor, startAngle + Math.PI);
+            Drawer.DrawLine(new Pen(Brushes.Yellow), size * SquareFactor - size * SmallFactor, startAngle + Math.PI / 2);
+
+            Drawer.Move(size * SmallFactor, startAngle + Math.PI);
+            Drawer.Move(size * SmallFactor * Math.Sqrt(2), startAngle + 3 * Math.PI / 4);
+        }
+    }
 }
