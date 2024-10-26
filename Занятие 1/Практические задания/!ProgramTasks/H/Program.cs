@@ -20,4 +20,4 @@ namespace H
             Print(GetSquare(42));
         }
     }
-}
+} 
