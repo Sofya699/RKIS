@@ -1,22 +1,27 @@
+using System;
+
 namespace Rectangles;
 
-public class Rectangle
+public static class RectanglesTask
 {
-    public readonly int Left, Top, Width, Height;
-
-    public Rectangle(int left, int top, int width, int height)
+    // Пересекаются ли два прямоугольника (пересечение только по границе также считается пересечением)
+    public static bool AreIntersected(Rectangle r1, Rectangle r2)
     {
-        Left = left;
-        Top = top;
-        Width = width;
-        Height = height;
+        // так можно обратиться к координатам левого верхнего угла первого прямоугольника: r1.Left, r1.Top
+        return true;
     }
 
-    public int Bottom => Top + Height;
-    public int Right => Left + Width;
-
-    public override string ToString()
+    // Площадь пересечения прямоугольников
+    public static int IntersectionSquare(Rectangle r1, Rectangle r2)
     {
-        return $"Left: {Left}, Top: {Top}, Width: {Width}, Height: {Height}";
+        return 0;
+    }
+
+    // Если один из прямоугольников целиком находится внутри другого — вернуть номер (с нуля) внутреннего.
+    // Иначе вернуть -1
+    // Если прямоугольники совпадают, можно вернуть номер любого из них.
+    public static int IndexOfInnerRectangle(Rectangle r1, Rectangle r2)
+    {
+        return -1;
     }
 }
