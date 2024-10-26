@@ -5,7 +5,10 @@
         private static string GetGreetingMessage(string name, double salary)
         {
             // возвращает "Hello, <name>, your salary is <salary>"
-            ...
+             private static string GetGreetingMessage(string name, double salary)
+        {
+            return string.Format("Hello, {0}, your salary is {1}",name, Math.Ceiling(salary));
+        }
         }
 
         static void Main(string[] args)
