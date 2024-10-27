@@ -4,9 +4,9 @@
     {
         static void Main(string[] args)
         {
-            var a = 5; // ← исправьте эту строку
-            a += 0.5;
-            Console.WriteLine(a);
+            double b = 5;
+            b += 0.5;
+            Console.WriteLine(b);
         }
     }
 }

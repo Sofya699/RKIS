@@ -4,11 +4,11 @@
     {
         static void Main(string[] args)
         {
-            double pi = Math.PI;
-            int tenThousand = 10000L;
-            float tenThousandPi = pi * tenThousand;
-            int roundedTenThousandPi = tenThousandPi;
-            int integerPartOfTenThousandPi = tenThousandPi;
+            double  = Math.PI;
+            int  = 10000L;
+            float  = 3,1415926535f;
+            int  = 0;
+            int  = 3;
             Console.WriteLine(integerPartOfTenThousandPi);
             Console.WriteLine(roundedTenThousandPi);
         }
