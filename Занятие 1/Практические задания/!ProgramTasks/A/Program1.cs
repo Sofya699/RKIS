@@ -1,10 +1,10 @@
-﻿namespace H
+﻿namespace A
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Print(GetSquare(42));
+            Console.WriteLine("The first step");
         }
     }
 }
