@@ -1,12 +1,22 @@
-﻿namespace Names;
+using System.Linq;
 
-internal static class HistogramTask
+namespace Names;
+
+public class HistogramData
 {
-    public static HistogramData GetBirthsPerDayHistogram(NameData[] names, string name)
-    {
-        return new HistogramData(
-            $"Рождаемость людей с именем '{name}'", 
-            new [] {"1"}, 
-            new[] {0d});
-    }
+	public HistogramData(string title, string[] xLabels, double[] yValues)
+	{
+		Title = title;
+		XLabels = xLabels;
+		YValues = yValues;
+	}
+
+	public string Title { get; }
+	public string[] XLabels { get; }
+	public double[] YValues { get; }
+
+	public bool Equals(HistogramData other)
+	{
+		return other.XLabels.SequenceEqual(XLabels) && other.YValues.SequenceEqual(YValues);
+	}
 }

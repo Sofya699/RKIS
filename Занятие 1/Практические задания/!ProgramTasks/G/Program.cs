@@ -1,11 +1,12 @@
+using System;
 ﻿namespace G
 {
     internal class Program
     {
         private static string GetGreetingMessage(string name, double salary)
         {
-            // возвращает "Hello, <name>, your salary is <salary>"
-            ...
+    
+            return $"Hello, {name}, your salary is {salary}";
         }
 
         static void Main(string[] args)
@@ -15,4 +16,4 @@
             Console.WriteLine(GetGreetingMessage("Steve Jobs", 1));
         }
     }
-}
+} 
