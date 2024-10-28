@@ -31,7 +31,7 @@ internal static class DragonFractalTask
                 x = newX; y = newY;
             }
 
-            pixels.SetPixel((int)Math.Round(x), (int)Math.Round(y));
+            pixels.SetPixel((int)(x * 100), (int)(y * 100));
         }   
     }
 }
